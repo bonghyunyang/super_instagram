@@ -26,13 +26,17 @@ SECRET_KEY = '&&cu2$s0e-lw+d!z&20-jl6vk@edt*b5b--@*0ck0gu(dpn9rf'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+ADMINS = [
+    ('bonghyun', 'bonghuynyang2@gmail.com')
+]
+
 ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    #Django Apps
+    # Django Apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,8 +44,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Third Apps
-    'debug_toolbar'
+    'bootstrap4',
+    'debug_toolbar',
+    'django_pydenticon',
     # Local Apps
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -88,6 +95,7 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = "accounts.user"
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -126,12 +134,23 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIR = [
-                os.path.join(BASE_DIR, 'instagram', 'static'),
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'instagram', 'static')
 ]
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 INTERNAL_IPS = ['127.0.0.1']
+
+# Email with Send Grid
+SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+WELCOME_EMAIL_SENDER = 'bonghyunyang2@gmail.com'
